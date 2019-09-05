@@ -1,0 +1,17 @@
+.displayBottom{
+   display: flex; 
+}
+.App{
+    background-color: blue;
+    height: 100%;
+}
+.dollars{
+    background-color: aqua;
+    width: 150px;
+}
+.display{
+    color: gold;
+}
+.amount{
+    margin-left: 50px;
+}
