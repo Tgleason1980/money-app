@@ -2,13 +2,13 @@ import React, {useEffect} from 'react';
 import "../components/counter.css";
 
 const Counter = (props) => {
-const totalBills = props.ones + props.fives + props.tens + props.twenties + props.fifties + props.hundreds;
 const totalFives = props.fives * 5;
 const totalTens = props.tens * 10;
 const totalTwenties = props.twenties * 20;
 const totalFifties = props.fifties * 50;
 const totalHundreds = props.hundreds * 100;
-const totalAmount =props.ones + totalFives + totalTens + totalTwenties + totalFifties + totalHundreds;
+
+
 
 useEffect(()=>{
     const dataOne = localStorage.getItem("ones");
@@ -17,6 +17,7 @@ useEffect(()=>{
     const dataTwenty = localStorage.getItem("twenties");
     const dataFifty = localStorage.getItem("fifties");
     const dataHundred = localStorage.getItem("hundreds");
+    
     if (dataOne){
         props.setOnes(JSON.parse(dataOne));
         
@@ -36,7 +37,35 @@ useEffect(()=>{
     if (dataHundred){
         props.setHundreds(JSON.parse(dataHundred));
     }
+   
 },[]);
+const totalAmountNo =
+()=>{
+    if(props.ones + totalFives + totalTens + totalTwenties + totalFifties + totalHundreds < 0){
+       return 0;
+    }
+    else{
+      return (
+          props.ones + totalFives + totalTens + totalTwenties + totalFifties + totalHundreds
+  )
+    }
+};totalAmountNo() 
+
+const totalBillsNo =
+()=>{
+    if(props.ones + props.fives + props.tens + props.twenties + props.fifties + props.hundreds < 0){
+       return 0;
+    }
+    else{
+      return (
+        props.ones + props.fives + props.tens + props.twenties + props.fifties + props.hundreds
+  )
+    }
+};totalBillsNo() 
+
+console.log(totalAmountNo)
+const totalAmount = totalAmountNo();
+const totalBills = totalBillsNo();
 useEffect(()=>{
     localStorage.setItem("ones", JSON.stringify(props.ones))
     localStorage.setItem("fives", JSON.stringify(props.fives))
@@ -44,7 +73,7 @@ useEffect(()=>{
     localStorage.setItem("twenties", JSON.stringify(props.twenties))
     localStorage.setItem("fifties", JSON.stringify(props.fifties))
     localStorage.setItem("hundreds", JSON.stringify(props.hundreds))
-},[props.ones, props.fives, props.tens, props.twenties, props.fifties, props.hundreds ]);
+},[props.ones, props.fives, props.tens, props.twenties, props.fifties, props.hundreds]);
     return (
     <div className='main-window'>    
       <div className="main_Display">
@@ -92,15 +121,18 @@ useEffect(()=>{
         </div>
     </div>
     <div className='displayBottom'>
+    
     <div className='display bills'>
         <h4>Total Bills: {totalBills}</h4>
     </div>
     <div className='display amount'>
         <h4>Total Amount: ${totalAmount}</h4>
+        
     </div>
   </div>
 </div>
     );
+ 
   };
   
   export default Counter;
